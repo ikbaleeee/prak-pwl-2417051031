@@ -5,23 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?= $title ?></title>
+    <title>{{ $title ?? 'PWL User' }}</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU90FeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEWIH"
-        crossorigin="anonymous">
+        rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
+    {{-- Navbar Component --}}
+    <x-navbar />
+
+    {{-- Konten Halaman --}}
     @yield('content')
 
+    {{-- Footer Component --}}
+    <x-footer />
+
     <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY31HB60NNkmXc5s9fDVZLESAAA55NDzOxhy9GkcIdslK1eN7N6j IeHz"
-        crossorigin="anonymous">
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
     </script>
 
 </body>
