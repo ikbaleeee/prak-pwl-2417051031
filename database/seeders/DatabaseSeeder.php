@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\UserModel;
+use App\Models\MataKuliah;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +13,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            KelasSeeder::class,
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        UserModel::create([
+            'nama' => 'Ikbal Feri',
+            'nim' => '2417051031',
+            'kelas_id' => 1,
+        ]);
+
+        UserModel::create([
+            'nama' => 'Ahmad Fauzi',
+            'nim' => '2417051005',
+            'kelas_id' => 2,
+        ]);
+
+        MataKuliah::create([
+            'nama_mk' => 'Praktikum Web Lanjut',
+            'sks' => 3,
+        ]);
+
+        MataKuliah::create([
+            'nama_mk' => 'Basis Data',
+            'sks' => 3,
         ]);
     }
 }

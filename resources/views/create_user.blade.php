@@ -8,80 +8,115 @@
         <div class="col-md-7 col-lg-6">
 
             <div class="mb-4">
-                <h2 class="fw-bold">Buat Pengguna Baru</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a href="{{ route('user.index') }}" class="text-decoration-none">Daftar Pengguna</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah User</li>
+                    </ol>
+                </nav>
+                <h2 class="fw-bold text-dark">
+                    <i class="bi bi-person-plus-fill text-primary me-2"></i>Buat Pengguna Baru
+                </h2>
                 <p class="text-muted">
                     Tambahkan pengguna baru ke dalam sistem.
                 </p>
             </div>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4">
+            <!-- Error Notification -->
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm border-0 border-start border-danger border-4" role="alert">
+                    <div class="d-flex align-items-center mb-1">
+                        <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>
+                        <strong>Terjadi Kesalahan Pengisian:</strong>
+                    </div>
+                    <ul class="mb-0 ps-3">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4 p-md-5">
 
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
                             <label for="nama" class="form-label fw-semibold">
-                                Nama
+                                <i class="bi bi-person me-1"></i> Nama Lengkap
                             </label>
 
                             <input
                                 type="text"
                                 id="nama"
                                 name="nama"
-                                class="form-control"
-                                placeholder="Masukkan nama"
+                                class="form-control form-control-lg fs-6 @error('nama') is-invalid @enderror"
+                                placeholder="Masukkan nama mahasiswa"
+                                value="{{ old('nama') }}"
                                 required>
+                            @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="npm" class="form-label fw-semibold">
-                                NPM
+                                <i class="bi bi-card-text me-1"></i> NPM
                             </label>
 
                             <input
                                 type="text"
                                 id="npm"
                                 name="npm"
-                                class="form-control"
+                                class="form-control form-control-lg fs-6 @error('npm') is-invalid @enderror"
                                 placeholder="Masukkan NPM"
+                                value="{{ old('npm') }}"
                                 required>
+                            @error('npm')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
                             <label for="kelas_id" class="form-label fw-semibold">
-                                Kelas
+                                <i class="bi bi-building me-1"></i> Kelas
                             </label>
 
                             <select
                                 name="kelas_id"
                                 id="kelas_id"
-                                class="form-select"
+                                class="form-select form-select-lg fs-6 @error('kelas_id') is-invalid @enderror"
                                 required>
 
                                 <option value="">-- Pilih Kelas --</option>
 
                                 @foreach ($kelas as $kelasItem)
-                                    <option value="{{ $kelasItem->id }}">
-                                        {{ $kelasItem->nama_kelas }}
+                                    <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
+                                        Kelas {{ $kelasItem->nama_kelas }}
                                     </option>
                                 @endforeach
 
                             </select>
+                            @error('kelas_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="d-flex gap-2">
+                        <div class="d-flex justify-content-between align-items-center pt-2">
 
                             <a
                                 href="{{ route('user.index') }}"
-                                class="btn btn-outline-secondary">
-                                Kembali
+                                class="btn btn-outline-secondary rounded-pill px-4 btn-action">
+                                <i class="bi bi-arrow-left me-1"></i> Kembali
                             </a>
 
                             <button
                                 type="submit"
-                                class="btn btn-dark">
-                                Simpan User
+                                class="btn btn-dark rounded-pill px-4 shadow-sm btn-action">
+                                <i class="bi bi-save me-1"></i> Simpan User
                             </button>
 
                         </div>
